@@ -1,0 +1,17 @@
+{
+  "generator-jhipster": {
+    "appsFolders": ["banking", "gateway"],
+    "directoryPath": "../",
+    "serviceDiscoveryType": "eureka",
+    "jwtSecretKey": "Y2RkZGNmMjZhMzQ3NjRkOWY2NjUyMWFlMjM0OTc2OWI3MWUxNTU3YzI1ZmJiOWJkODUyYjI3YTIyMGM4OGEwNjBhNGY3MDY1MGZlNzBmNmZkYzY3NWI2YjdiM2VjZTcxY2RmYQ==",
+    "dockerRepositoryName": "azrulhasni",
+    "dockerPushCommand": "docker push",
+    "kubernetesNamespace": "default",
+    "kubernetesServiceType": "NodePort",
+    "kubernetesUseDynamicStorage": true,
+    "kubernetesStorageClassName": "",
+    "ingressDomain": "",
+    "monitoring": "no",
+    "istio": false
+  }
+}

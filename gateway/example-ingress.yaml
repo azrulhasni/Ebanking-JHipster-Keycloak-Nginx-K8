@@ -1,0 +1,24 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: example-ingress
+  annotations:
+    ingress.kubernetes.io/rewrite-target: /
+spec:
+  tls:
+    - hosts:
+      - gateway.localhost
+      # This assumes tls-secret exists and the SSL
+      # certificate contains a CN for foo.bar.com
+      secretName: my-gw-certs
+  rules:
+  - http:
+      paths:
+        - path: /banana
+          backend:
+            serviceName: banana-service
+            servicePort: 5678
+        - path: /
+          backend:
+            serviceName: gateway
+            servicePort: 18080

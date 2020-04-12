@@ -1,0 +1,55 @@
+{
+    "name": "Transaction",
+    "fields": [
+        {
+            "fieldName": "transactionId",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "transactionType",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "amount",
+            "fieldType": "BigDecimal"
+        },
+        {
+            "fieldName": "time",
+            "fieldType": "ZonedDateTime"
+        },
+        {
+            "fieldName": "currency",
+            "fieldType": "Currency",
+            "fieldValues": "USD,MYR,SGD"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "productAccount",
+            "otherEntityRelationshipName": "transaction",
+            "relationshipName": "source",
+            "otherEntityField": "id"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "productAccount",
+            "otherEntityRelationshipName": "transaction",
+            "relationshipName": "target",
+            "otherEntityField": "id"
+        }
+    ],
+    "changelogDate": "20200331102200",
+    "entityTableName": "transaction",
+    "dto": "mapstruct",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "banking",
+    "applications": "*",
+    "microserviceName": "banking",
+    "angularJSSuffix": "banking"
+}

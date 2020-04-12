@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: banking
+  namespace: default
+  labels:
+    app: banking
+spec:
+  selector:
+    app: banking
+  ports:
+    - name: http
+      port: 18081

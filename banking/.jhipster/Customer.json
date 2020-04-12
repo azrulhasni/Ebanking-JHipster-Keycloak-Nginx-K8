@@ -1,0 +1,46 @@
+{
+    "name": "Customer",
+    "fields": [
+        {
+            "fieldName": "cifNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "firstName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "lastName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "icNumber",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "phoneNumber",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "otherEntityName": "productAccount",
+            "otherEntityRelationshipName": "customer",
+            "relationshipName": "accounts"
+        }
+    ],
+    "changelogDate": "20200331102100",
+    "entityTableName": "customer",
+    "dto": "mapstruct",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "readOnly": false,
+    "embedded": false,
+    "clientRootFolder": "banking",
+    "applications": "*",
+    "microserviceName": "banking",
+    "angularJSSuffix": "banking"
+}

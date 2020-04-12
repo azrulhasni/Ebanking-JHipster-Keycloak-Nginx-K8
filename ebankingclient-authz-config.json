@@ -1,0 +1,177 @@
+{
+  "allowRemoteResourceManagement": true,
+  "policyEnforcementMode": "ENFORCING",
+  "resources": [
+    {
+      "name": "/api/customers/",
+      "ownerManagedAccess": false,
+      "displayName": "/api/customers/",
+      "attributes": {},
+      "_id": "3a29f1fc-4bd0-4586-a7c1-ec084c5e265e",
+      "uris": [
+        "/api/customers/*"
+      ],
+      "scopes": [
+        {
+          "name": "Create"
+        },
+        {
+          "name": "Read"
+        },
+        {
+          "name": "Read Own"
+        },
+        {
+          "name": "Update"
+        }
+      ]
+    },
+    {
+      "name": "/api/product-accounts/",
+      "ownerManagedAccess": false,
+      "displayName": "Product-Account",
+      "attributes": {},
+      "_id": "64d36c40-efa4-494f-b3af-ad226233362a",
+      "uris": [
+        "/api/product-accounts/*"
+      ],
+      "scopes": [
+        {
+          "name": "Create"
+        },
+        {
+          "name": "Read"
+        },
+        {
+          "name": "Read Own"
+        },
+        {
+          "name": "Update"
+        }
+      ]
+    },
+    {
+      "name": "Default Resource",
+      "type": "urn:ebankingclient:resources:default",
+      "ownerManagedAccess": false,
+      "attributes": {},
+      "_id": "28ddfbdd-e192-49df-b4db-773d9e6cae6e",
+      "uris": [
+        "/*"
+      ]
+    }
+  ],
+  "policies": [
+    {
+      "id": "3e54a34d-883e-4313-8edd-7e44ab66b811",
+      "name": "Only Customer Policy",
+      "type": "role",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "roles": "[{\"id\":\"ROLE_CUSTOMER\",\"required\":false}]"
+      }
+    },
+    {
+      "id": "37a926a1-cbe0-484f-b291-9cde31769ed9",
+      "name": "Only Bank Teller Policy",
+      "type": "role",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "roles": "[{\"id\":\"ROLE_BANK_TELLER\",\"required\":false}]"
+      }
+    },
+    {
+      "id": "eca4b309-0fad-43e0-9bda-6a423b06d833",
+      "name": "Read All Customer",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"/api/customers/\"]",
+        "scopes": "[\"Read\"]",
+        "applyPolicies": "[\"Only Bank Teller Policy\"]"
+      }
+    },
+    {
+      "id": "5017a4af-0a1f-4ee5-9c90-6f95973e80f8",
+      "name": "Read Own Customer",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"/api/customers/\"]",
+        "scopes": "[\"Read Own\"]",
+        "applyPolicies": "[\"Only Customer Policy\"]"
+      }
+    },
+    {
+      "id": "68abeeb5-1f1f-4410-a29a-3bfa45acfcf1",
+      "name": "Read Own Product-Account",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"/api/product-accounts/\"]",
+        "scopes": "[\"Read Own\"]",
+        "applyPolicies": "[\"Only Customer Policy\"]"
+      }
+    },
+    {
+      "id": "937674da-7148-40b1-9e43-51de3a22fbff",
+      "name": "Create Customers",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"/api/customers/\"]",
+        "scopes": "[\"Create\"]",
+        "applyPolicies": "[\"Only Bank Teller Policy\"]"
+      }
+    },
+    {
+      "id": "9cfb3eaa-e7d9-4f63-9a58-c10219bfbc36",
+      "name": "Read All Product-Account",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"/api/product-accounts/\"]",
+        "scopes": "[\"Read\"]",
+        "applyPolicies": "[\"Only Bank Teller Policy\"]"
+      }
+    },
+    {
+      "id": "6c3c268a-600d-4bd9-957b-dc815a264b16",
+      "name": "Create Product-Account",
+      "type": "scope",
+      "logic": "POSITIVE",
+      "decisionStrategy": "UNANIMOUS",
+      "config": {
+        "resources": "[\"/api/product-accounts/\"]",
+        "scopes": "[\"Create\"]",
+        "applyPolicies": "[\"Only Bank Teller Policy\"]"
+      }
+    }
+  ],
+  "scopes": [
+    {
+      "id": "9ef0db47-20cd-4bee-bc21-454197c43a9d",
+      "name": "Read Own"
+    },
+    {
+      "id": "6785540b-e464-44e6-900d-a99a2d1ffc13",
+      "name": "Update"
+    },
+    {
+      "id": "9a32bc5b-4e09-4c76-ba58-9ac62283f60c",
+      "name": "Read"
+    },
+    {
+      "id": "8db1db70-d449-4c4f-bb29-b6d238943142",
+      "name": "Create"
+    }
+  ],
+  "decisionStrategy": "UNANIMOUS"
+}

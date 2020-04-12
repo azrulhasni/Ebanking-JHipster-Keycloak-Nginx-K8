@@ -1,0 +1,52 @@
+enum Currency{  
+    USD, MYR, SGD  
+}  
+  
+entity Customer{  
+    cifNumber String,  
+    firstName String,  
+    lastName String,  
+    icNumber String,  
+    phoneNumber String  
+}  
+  
+entity Transaction{  
+    transactionId String,  
+    transactionType String,  
+    amount BigDecimal,  
+    time ZonedDateTime,  
+    currency Currency,  
+}  
+  
+entity ProductAccount{  
+    accountNumber String,  
+    productId String,  
+    openingDate ZonedDateTime,  
+    status Integer,  
+    balance BigDecimal  
+}  
+  
+relationship OneToMany {  
+    Customer{accounts} to ProductAccount  
+}  
+  
+relationship ManyToOne {  
+    Transaction{source} to ProductAccount  
+}  
+  
+relationship ManyToOne {  
+    Transaction{target} to ProductAccount  
+}  
+  
+// Set pagination options  
+paginate ProductAccount, Transaction with infinite-scroll  
+paginate Customer with pagination  
+  
+dto * with mapstruct  
+  
+// Set service options to all except few  
+service all with serviceImpl  
+  
+// Set an angular suffix  
+angularSuffix * with banking
+

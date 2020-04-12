@@ -1,0 +1,31 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: my-ingress
+  annotations:
+   kubernetes.io/ingress.class: nginx
+   nginx.ingress.kubernetes.io/server-snippet: |
+      location /keycloak-auth/ {
+        proxy_pass http://keycloak-http.default.svc.cluster.local:8090/auth/;
+      }
+spec:
+  tls:
+    - hosts:
+      - gateway.localhost
+      secretName: my-gw-certs
+  rules:
+  - http:
+      paths:
+        - path: /
+          backend:
+            serviceName: gateway
+            servicePort: 18080
+        - path: /auth
+          backend:
+            serviceName: keycloak-http
+            servicePort: 8090
+        - path: /echo
+          backend:
+            serviceName: echo-service 
+            servicePort: 80
+        

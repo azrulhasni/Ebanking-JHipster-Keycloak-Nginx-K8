@@ -1,0 +1,15 @@
+apiVersion: skaffold/v1
+kind: Config
+build:
+  artifacts:
+    - image: azrulhasni/banking
+      context: ../banking
+      jib: {}
+    - image: azrulhasni/gateway
+      context: ../gateway
+      jib: {}
+  tagPolicy:
+    envTemplate:
+      template: '{{.IMAGE_NAME}}:latest'
+deploy:
+  kustomize: {}

@@ -1,0 +1,271 @@
+location /api/ {
+add_header 'Access-Control-Allow-Origin' '*';
+add_header 'Access-Control-Allow-Methods' 'POST,GET,OPTIONS';
+proxy_set_header X-Real-IP $remote_addr;
+proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+proxy_set_header X-NginX-proxy true;
+proxy_pass http://ireport_dyndns/api/;
+proxy_ssl_session_reuse off;
+proxy_set_header Host $http_host;
+proxy_redirect off;
+}
+
+nginx.org/server-snippets: |
+          location / {
+            proxy_hide_header 'X-Forwarded-Proto'
+          }
+
+          location /v2/ {
+            proxy_hide_header 'X-Forwarded-Proto'
+          }
+
+          location /service/ {
+            proxy_hide_header 'X-Forwarded-Proto'
+          }
+
+
+kubectl expose service keycloak-http --port=8090 --target-port=8080 --type=LoadBalancer --name=keycloak-http-ex
+
+
+curl -kvX POST \
+  https://localhost/auth/realms/ebanking/protocol/openid-connect/token \
+  -H 'Authorization: Basic Og==' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  -H 'Host: keycloak-http.default.svc.cluster.local:8443' \
+  -H 'Postman-Token: e2cb20c5-7457-4f9f-aa53-93885a263654' \
+  -H 'cache-control: no-cache' \
+  -d 'username=donald.duck&password=abc123&client_id=ebankingclient&client_secret=05d30b83-5143-4177-bcfd-b8d240add6d6&grant_type=password&undefined='
+
+kind: Service
+apiVersion: v1
+metadata:
+  name: my-keycloak-ext
+  namespace: default
+spec:
+  type: ExternalName
+  externalName: keycloak-http.default.svc.cluster.local
+  ports:
+  - port: 8443
+
+
+curl -kV -X POST https://keycloak-http.default.svc.cluster.local:8443/auth/realms/ebanking/protocol/openid-connect/token -H "Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJhaWhxTmdwNkFPdW12LUU3NzlwTVV1Q1hjR3FuYlZwRm80aWhPR2txWXUwIn0.eyJqdGkiOiI3MmRmZWI3ZC0yN2JhLTQ5YzctYjM0YS04ZWY1YTI3Y2RhMjMiLCJleHAiOjE1ODYxMDQ5NTQsIm5iZiI6MCwiaWF0IjoxNTg2MTA0NjU0LCJpc3MiOiJodHRwczovL2tleWNsb2FrLWh0dHAuZGVmYXVsdC5zdmMuY2x1c3Rlci5sb2NhbDo4NDQzL2F1dGgvcmVhbG1zL2ViYW5raW5nIiwiYXVkIjoiYWNjb3VudCIsInN1YiI6ImUwZTIxNDNlLTZmMmYtNDdhYS1hY2VjLWE3ZWJhY2M5OWIyYSIsInR5cCI6IkJlYXJlciIsImF6cCI6ImViYW5raW5nY2xpZW50IiwiYXV0aF90aW1lIjowLCJzZXNzaW9uX3N0YXRlIjoiNzA1ZTg0MDQtYzkzNy00NjdkLWJkYmUtYWEyZWE3ZjY0MzA0IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyJodHRwczovL2xvY2FsaG9zdCIsImh0dHA6Ly9sb2NhbGhvc3Q6MTgwODAiLCJodHRwczovL2xvY2FsaG9zdDoxODA4MCIsImh0dHA6Ly9sb2NhbGhvc3QiXSwicmVhbG1fYWNjZXNzIjp7InJvbGVzIjpbIlJPTEVfQ1VTVE9NRVIiLCJST0xFX1VTRVIiLCJvZmZsaW5lX2FjY2VzcyIsInVtYV9hdXRob3JpemF0aW9uIl19LCJyZXNvdXJjZV9hY2Nlc3MiOnsiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJuYW1lIjoiRG9uYWxkIER1Y2siLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJkb25hbGQuZHVjayIsImdpdmVuX25hbWUiOiJEb25hbGQiLCJmYW1pbHlfbmFtZSI6IkR1Y2siLCJlbWFpbCI6ImRvbmFsZC5kdWNrQGNvbXBhbnkuY29tIn0.fN2e6I9twkH5v7C5oKvq8YlB3LIhmZwVe51jcIXj86KFWr5t936Cu1cvnRFUby7N6Ib4Ona920bfw09qgNfUdnxVfEuGm1yvEOUD2a3Op96iyy7kwP0bTuIUzfYlssiMv3oWin50hOsMxPatqTinZgOIIU2mdbKW2WN13IZWX2YzD4EMuatdUSMOo29vnQ_Vrh2b5yMagsXInc-uL5cKtUYAnJZXHqAdEH_sj_ak8WUi0uK1s4fDicwnwCmV7_gCESQk3KysAfbLA18YWuXLEy0zW01xu0oReyH1_ojz7JcTYQeEB-V-NmMY7js5ODL4RRcjwGLDj0HbTm6Emgqhzw" --data "grant_type=urn:ietf:params:oauth:grant-type:uma-ticket" --data "permission=/api/customers/#Read Own"
+
+
+
+
+curl -kX POST -vu client:ebankingclient https://keycloak-http.default.svc.cluster.local:8443/auth/realms/ebanking/protocol/openid-connect/token -H "Host: localhost" -H "Accept: application/json" -d "username=donald.duck&password=abc123&grant_type=password&scope=read&client_id=ebankingclient&client_secret=af2aa484-d5fd-4044-b6ee-10c049b7d0f4"
+
+
+
+echo -n | openssl s_client -connect https://127.0.0.1:8443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' > ~/localhost.crt
+
+keytool -importcert -file mybanking.my.crt -alias selfsigned.nextgen -keystore /Library/Java/JavaVirtualMachines/jdk-11.0.6.jdk/Contents/Home/lib/security/cacerts
+
+
+Things to do
+=============
+Bank_Teller
+    -> Create Customer ---- POST /api/customers
+    -> Create Account  and associate Customer ---- POST /api/product-accounts
+    -> View Account --- GET /api/customers
+    
+    
+Bank_Customer
+    -> View Own Account --- GET /api/customers/{id}
+                            GET /api/product-accounts/{id}
+    
+    
+    
+    
+1) In Keycloak - Client, enable Authorization
+
+
+https://192.168.99.106:8443
+
+9607115545#
+1800806937
+
+
+9607115545
+
+
+20001552 Data Analyst (Tableau) - pending Kanags, Shafinaz and Gurdip
+20001424 Solution Architect - pending Gurdip
+
+Get yaml
+=======
+kubectl get po,deployment,rc,rs,ds,no,job -o yaml
+
+Nginx
+=====
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/mandatory.yaml
+
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/nginx-0.30.0/deploy/static/provider/cloud-generic.yaml -n ingress-nginx
+
+
+Apply cert manager CRD
+-----------------------
+kubectl apply -f https://raw.githubusercontent.com/jetstack/cert-manager/release-0.15/deploy/manifests/00-crds.yaml
+
+Set label
+----------
+kubectl label namespace kube-system certmanager.k8s.io/disable-validation="true"
+
+Install jetstack
+------------------
+helm install cert-manager --namespace kube-system jetstack/cert-manager --version v0.14.1
+
+        NAME: cert-manager
+        LAST DEPLOYED: Fri Mar 27 16:10:02 2020
+        NAMESPACE: kube-system
+        STATUS: deployed
+        REVISION: 1
+        TEST SUITE: None
+        NOTES:
+        cert-manager has been deployed successfully!
+
+        In order to begin issuing certificates, you will need to set up a ClusterIssuer
+        or Issuer resource (for example, by creating a 'letsencrypt-staging' issuer).
+
+        More information on the different types of issuers and how to configure them
+        can be found in our documentation:
+
+        https://cert-manager.io/docs/configuration/
+
+        For information on how to configure cert-manager to automatically provision
+        Certificates for Ingress resources, take a look at the `ingress-shim`
+        documentation:
+
+        https://cert-manager.io/docs/usage/ingress/
+        
+Create issuer.yaml
+------------------
+apiVersion: certmanager.k8s.io/v1alpha1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt
+spec:
+  acme:
+    # The ACME server URL
+    server: https://acme-staging-v02.api.letsencrypt.org/directory
+    # Email address used for ACME registration
+    email: azrulhasni.gmail.com
+    # Name of a secret used to store the ACME account private key
+    privateKeySecretRef:
+      name: letsencrypt
+    # Enable the HTTP-01 challenge provider
+    http01: {}
+    
+Register issuer
+---------------
+
+
+===============
+
+PENTING: Map host level port to internal port by creating a loadbalancer
+-------------------------------------------------------------------------
+kubectl expose service keycloak-http --port=8090 --target-port=8080 --type=LoadBalancer --name=keycloak-http-ex
+
+
+
+Test token
+----------
+https://www.jsonwebtoken.io/
+
+
+
+Running Postgresql
+------------------
+ PostgreSQL can be accessed via port 5432 on the following DNS name from within your cluster:
+
+    my-postgresql.default.svc.cluster.local - Read/Write connection
+
+To get the password for "postgres" run:
+
+    export POSTGRES_PASSWORD=$(kubectl get secret --namespace default my-postgresql -o jsonpath="{.data.postgresql-password}" | base64 --decode)
+
+To connect to your database run the following command:
+
+    kubectl run my-postgresql-client --rm --tty -i --restart='Never' --namespace default --image docker.io/bitnami/postgresql:11.7.0-debian-10-r40 --env="PGPASSWORD=$POSTGRES_PASSWORD" --command -- psql --host my-postgresql -U postgres -d postgres -p 5432
+
+
+
+To connect to your database from outside the cluster execute the following commands:
+
+    kubectl port-forward --namespace default svc/my-postgresql 5432:5432 & PGPASSWORD="$POSTGRES_PASSWORD" psql --host 127.0.0.1 -U postgres -d postgres -p 5432
+
+Running Keycloak
+----------------
+NAME: keycloak  
+LAST DEPLOYED: Mon Mar 23 22:56:03 2020  
+NAMESPACE: default  
+STATUS: deployed  
+REVISION: 1  
+NOTES:  
+Keycloak can be accessed:  
+* Within your cluster, at the following DNS name at port 80:  
+  keycloak-http.default.svc.cluster.local
+* From outside the cluster, run these commands in the same shell:  
+  export POD_NAME=$(kubectl get pods --namespace default -l app.kubernetes.io/instance=keycloak -o jsonpath="{.items[0].metadata.name}")  
+  echo "Visit http://127.0.0.1:8080 to use Keycloak"  
+  kubectl port-forward --namespace default $POD_NAME 8080  
+Login with the following credentials:  
+Username: keycloak  
+To retrieve the initial user password run:  
+kubectl get secret --namespace default keycloak-http -o jsonpath="{.data.password}" | base64 --decode; echo
+
+
+Map host port 8090 to  Keycloak internal pod port 8080
+-------------------------------------------------------
+sudo kubectl port-forward --namespace default $POD_NAME 8090:8080
+
+Deploying to k8s
+----------------
+WARNING! Kubernetes configuration generated, but no Jib cache found
+If you forgot to generate the Docker image for this application, please run:
+To generate the missing Docker image(s), please run:
+  ./mvnw -ntp -Pprod verify jib:dockerBuild in /Users/azrul/sandbox/ebanking/banking
+  ./mvnw -ntp -Pprod verify jib:dockerBuild in /Users/azrul/sandbox/ebanking/gateway
+
+
+WARNING! You will need to push your image to a registry. If you have not done so, use the following commands to tag and push the images:
+  docker image tag banking azrulhasni/banking
+  docker push azrulhasni/banking
+  docker image tag gateway azrulhasni/gateway
+  docker push azrulhasni/gateway
+
+INFO! Alternatively, you can use Jib to build and push image directly to a remote registry:
+  ./mvnw -ntp -Pprod verify jib:build -Djib.to.image=azrulhasni/banking in /Users/azrul/sandbox/ebanking/banking
+  ./mvnw -ntp -Pprod verify jib:build -Djib.to.image=azrulhasni/gateway in /Users/azrul/sandbox/ebanking/gateway
+
+You can deploy all your apps by running the following kubectl command:
+  bash kubectl-apply.sh -f
+
+[OR]
+
+If you want to use kustomize configuration, then run the following command:
+  bash kubectl-apply.sh -k
+
+Use these commands to find your application's IP addresses:
+  kubectl get svc gateway -n ebanking
+
+Create users and admin
+Assign ROLE_ADMIN to admin, and ROLE_USER to user
+
+=============================
+Keycloak https
+--------------
+eycloak can be accessed:
+
+* Within your cluster, at the following DNS name at port 8090:
+
+  keycloak-http.default.svc.cluster.local
+
+* From outside the cluster:
+  - https://keycloak.banking.my
+
+Login with the following credentials:
+Username: keycloak
+
+To retrieve the initial user password run:
+kubectl get secret --namespace default keycloak-http -o jsonpath="{.data.password}" | base64 --decode; echo
