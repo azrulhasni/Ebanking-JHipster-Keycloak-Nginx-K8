@@ -98,7 +98,7 @@ quickly.
     Resource is where we specify the routing rules and SSL rule for our
     micro-services.
 
--   There are many implementation of Ingress, for this tutorial, we will be
+-   There are many implementations of Ingress, for this tutorial, we will be
     using Nginx.
 
 -   Do note that our SSL (HTTPS) terminates at the Ingress Controller level. For
@@ -306,7 +306,7 @@ registry-secret                  Opaque                     
 Install and configure Keycloak
 ------------------------------
 
-### How Keycloak work
+### How Keycloak works
 
 -   Before we start, we should learn a bit on how Keycloak authentication works.
     We are using OAuth2 standard to control our access. Under OAuth2, there are
@@ -1366,7 +1366,7 @@ spec:
 -   In the same folder run :
 
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-> kubectl -f my-ingress.yaml
+> kubectl apply -f my-ingress.yaml
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 -   Once the command is successful, you are now done with SSL ingress setup for
