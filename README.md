@@ -360,9 +360,7 @@ Install and configure Keycloak
 
  
 
-![](ms.images/gqeHT7.jpg)
-
- 
+![](README.images/VX8qkE.jpg)
 
  
 
@@ -372,7 +370,7 @@ Install and configure Keycloak
 
 -   We will now start installing Keycloak by first installing Helm. Helm is a
     package manager for Kubernetes, the way Maven is for Java and NPM is for
-    Javascript. Follow the instruction here
+    Javascript. Follow the instructions here
     [<https://helm.sh/docs/intro/install/>] to install Helm. On a Mac, we can
     use brew:
 
@@ -655,15 +653,17 @@ spec:
 
 -   We are now done with Keycloak
 
+ 
+
+### Keycloak URLs
+
 -   Before we move on, lets recap all the URLs involved:
 
--    
-
-| **URL**                                                                           | **What is it for**                                         | **Who calls it** |
-|-----------------------------------------------------------------------------------|------------------------------------------------------------|------------------|
-| http://keycloak-http.default.svc.cluster.local:8090/auth/realms/ebanking          | Keycloak URL internal to Kubernetes                        | Micro-services   |
-| http://keycloak-http.default.svc.cluster.local:8090/keycloak-auth/realms/ebanking | Client facing (public) URL of Keycloak to get access token | Client           |
-| http://localhost/auth OR https://localhost/auth                                   | Client facing (internal users) Keycloak admin portal       | Client / Admin   |
+| **URL**                                                                                           | **What is it for**                                         | **Who calls it** |
+|---------------------------------------------------------------------------------------------------|------------------------------------------------------------|------------------|
+| http://keycloak-http.default.svc.cluster.local:8090/auth/realms/ebanking                          | Keycloak URL internal to Kubernetes                        | Micro-services   |
+| https://localhost/keycloak-auth/realms/ebanking OR http://localhost/keycloak-auth/realms/ebanking | Client facing (public) URL of Keycloak to get access token | Client           |
+| http://localhost/auth OR https://localhost/auth                                                   | Client facing (internal users) Keycloak admin portal       | Client / Admin   |
 
  
 
