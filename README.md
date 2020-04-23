@@ -33,7 +33,7 @@ quickly.
 
  
 
-![](ms.images/nRPo3i.jpg)
+![](README.images/nRPo3i.jpg)
 
  
 
@@ -82,7 +82,7 @@ quickly.
     element is a service. A service is the entry point to pods and can do things
     like load balance incoming traffic to multiple pods.
 
-![](ms.images/X8cvpK.jpg)
+![](README.images/X8cvpK.jpg)
 
 ### Ingress
 
@@ -187,18 +187,18 @@ Install Docker Desktop
 -   Next, you need to add Kubernetes support. From Docker menu, choose
     Dashboard.
 
-![](ms.images/DOKQgc.jpg)
+![](README.images/DOKQgc.jpg)
 
 -   On the dashboard, click on the Gear icon (top right), choose Kubernetes in
     the left-side menu
 
-![](ms.images/qhYBmU.jpg)
+![](README.images/qhYBmU.jpg)
 
 -   Tick ‘Enable Kubernetes’ and ‘Deploy Docker Stacks to Kubernetes by
     Default’. Click on the ‘Apply’ button and wait for the status to be shown as
     ‘Running'
 
-![](ms.images/yNhtK7.jpg)
+![](README.images/yNhtK7.jpg)
 
 -   Congratulations! You have a running Kubernetes in your machine now.
 
@@ -321,7 +321,7 @@ Install and configure Keycloak
 
  
 
-![](ms.images/8nt79E.jpg)
+![](README.images/8nt79E.jpg)
 
  
 
@@ -399,7 +399,7 @@ Install and configure Keycloak
 -   Download values.yaml into \$PROJECTS/ebanking/keycloak and rename it
     config.yaml
 
-![](ms.images/Zosp1z.jpg)
+![](README.images/Zosp1z.jpg)
 
 -   Open up config.yaml,
 
@@ -519,7 +519,7 @@ spec:
         This mapping is what solves our problem stated before in the paragraph
         "A few words about Keycloak URL”.
 
-![](ms.images/uaWMba.jpg)
+![](README.images/uaWMba.jpg)
 
 -   Because of this, our public URL to get access token would be
     **https://localhost/keycloak-auth/realms/ebanking/protocol/openid-connect/token**
@@ -561,19 +561,19 @@ spec:
     is on
     `https://localhost/keycloak-auth/realms/ebanking/protocol/openid-connect/token.`
 
-![](ms.images/Wo6qBK.jpg)
+![](README.images/Wo6qBK.jpg)
 
 -   Click on ‘Administration Console’ and use the password you retrieve.
 
 -   Under ‘Master’ realm, click on the dropdown button and choose ‘Add Realm’.
 
-![](ms.images/dDrOHn.jpg)
+![](README.images/dDrOHn.jpg)
 
 -   Enter the name new realm name ‘ebanking’ and create
 
 -   Click on ‘Clients’ and click on the button ‘Create’ to create a client
 
-![](ms.images/vLbqxJ.jpg)
+![](README.images/vLbqxJ.jpg)
 
 -   In the client id, put ‘ebankingclient’ and click ’Save'
 
@@ -599,13 +599,13 @@ spec:
 
     Once done, click on the button Save.
 
-![](ms.images/KUeWX0.jpg)
+![](README.images/KUeWX0.jpg)
 
 -   Once saved, on the same page, go back to the top and choose the Confidential
     tab. Note that the Confidential tab will only appear if you have chosen your
     Access Type as confidential and you have click on Save.
 
-![](ms.images/1ccQI9.jpg)
+![](README.images/1ccQI9.jpg)
 
 -   Note the client secret (596f1a…) and copy it somewhere.
 
@@ -615,7 +615,7 @@ spec:
 
 -   Next, choose Roles and create two roles: ROLE_ADMIN and ROLE_USER
 
-![](ms.images/2DbWT7.jpg)
+![](README.images/2DbWT7.jpg)
 
 -   Under Users, create 2 users:
 
@@ -627,29 +627,29 @@ spec:
     appear. Click on the ‘Add User’ button. The page below will appear. Fill in
     the information and click on Save.
 
-![](ms.images/90tgcj.jpg)
+![](README.images/90tgcj.jpg)
 
 -   Once saved, a tab called ‘Credential’ will appear. This is where we put in
     the user password
 
-![](ms.images/UYsfZJ.jpg)
+![](README.images/UYsfZJ.jpg)
 
 -   Enter the password and click on Set Password
 
-![](ms.images/EEFvkZ.jpg)
+![](README.images/EEFvkZ.jpg)
 
 -   A dialog will appear. Confirm the Set Password and your user is created.
 
  
 
-![](ms.images/jNhnNl.jpg)
+![](README.images/jNhnNl.jpg)
 
  
 
 -   IMPORTANT: Please make sure that the donald.duck user DO NOT have ‘Required
     User Action’ set
 
-![](ms.images/Iub4cB.jpg)
+![](README.images/Iub4cB.jpg)
 
 -   We are now done with Keycloak
 
@@ -743,7 +743,7 @@ logging:
 
 -   Once successfully run, you will see the screen below in your console
 
-![](ms.images/pQwsLk.jpg)
+![](README.images/pQwsLk.jpg)
 
 -   We have successfully run JHipster Registry
 
@@ -835,7 +835,7 @@ Customise it as per below:
 
 -   Upon completion, the console should show the status as per below:
 
-![](ms.images/ln7aE8.jpg)
+![](README.images/ln7aE8.jpg)
 
 -   We have successfully run our gateway
 
@@ -920,11 +920,11 @@ Customise it as per below:
     folder. Alternatively, you can just create a file called ‘banking.jh’ and
     copy paste the content as per below
 
-![](ms.images/zKJ6zl.jpg)
+![](README.images/zKJ6zl.jpg)
 
 -   The structure:
 
-![](ms.images/oStIP4.jpg)
+![](README.images/oStIP4.jpg)
 
 -   The ‘banking.jh’ content
 
@@ -1001,7 +1001,7 @@ angularSuffix * with banking
 
 -   Upon completion, the console should show the status as per below:
 
-![](ms.images/8iBlBo.jpg)
+![](README.images/8iBlBo.jpg)
 
 -   Congratulations, we have set up our micro-service
 
@@ -1013,35 +1013,35 @@ angularSuffix * with banking
 
 -   You will see the screen below. Go to Account and click Sign In
 
-![](ms.images/YPXNDw.jpg)
+![](README.images/YPXNDw.jpg)
 
 -   You will be directed to Keycloak login page. Enter ‘admin’ as username and
     use the password set for the user ‘admin’ as in the paragraph 'Install and
     configure Keycloak on Kubernetes’.
 
-![](ms.images/2xw22z.jpg)
+![](README.images/2xw22z.jpg)
 
 -   Once you log in, you will land back to JHipster page. You should have a new
     ‘Administration’ menu. Choose API. Note that if you do not have the
     ‘Administration’ menu, you have not associated ‘ROLE_ADMIN’ to your ‘admin’
     user.
 
-![](ms.images/MKID73.jpg)
+![](README.images/MKID73.jpg)
 
 -   Next, you will see a list of available APIs as per the screen below
 
-![](ms.images/3cOKCs.jpg)
+![](README.images/3cOKCs.jpg)
 
 -   Click on GET /api/customers getAllCustomers API. A more detailed page on the
     API will appear. Click on the button ’Try Out’ on the top right. And then,
     click on ‘Execute’ button:
 
-![](ms.images/6qoQ7M.jpg)
+![](README.images/6qoQ7M.jpg)
 
 -   We should be getting a response code 200 back with some dummy data generated
     automatically by JHipster.
 
-![](ms.images/zgqxJW.jpg)
+![](README.images/zgqxJW.jpg)
 
  
 
@@ -1055,7 +1055,7 @@ angularSuffix * with banking
 
 -   Recall the authentication flow:
 
-![](ms.images/ZaZwDr.jpg)
+![](README.images/ZaZwDr.jpg)
 
 -   In this case, we will concentrate on the ‘Usage’ part of the flow. So
     firstly, we will need to create an API call to get the access token. Use the
@@ -1160,7 +1160,7 @@ Deployment to Kubernetes
     Nonetheless, we will still push, from our development machine, to Docker
     Hub, before deploying to our Kubernetes cluster.
 
-![](ms.images/OE1ASU.jpg)
+![](README.images/OE1ASU.jpg)
 
  
 
@@ -1257,11 +1257,11 @@ Use these commands to find your application's IP addresses:
 -   Lets verify that both docker images have been pushed to Docker Hub . Go to
     Docker Hub (go to hub.docker.com or use Docker Desktop menu) and log in.
 
-![](ms.images/FB2XGm.jpg)
+![](README.images/FB2XGm.jpg)
 
 -   You should be able to see your Docker images.
 
-![](ms.images/0hAOk1.jpg)
+![](README.images/0hAOk1.jpg)
 
  
 
