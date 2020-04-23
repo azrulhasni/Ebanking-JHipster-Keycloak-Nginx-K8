@@ -48,7 +48,7 @@ quickly.
 -   To pass through Zuul, we need to first obtain an access token. The access
     token will be provided by Keycloak once username and password is validated.
     An access token can then be used to call the Banking micro-service (through
-    the Zuul gateway)
+    the Zuul gateway).
 
  
 
