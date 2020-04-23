@@ -1539,10 +1539,8 @@ curl -X POST \
 
  
 
--   Congratulations! You have developed, tested, deployed and run your
-    micro-services successfully. Unfortunately we are still running our services
-    without SSL (plain HTTP instead of HTTPS). Next we will see how to secure it
-    with self signed certificate and ingress.
+-   Congratulations! You have developed, tested, deployed and run your secure
+    micro-services successfully.
 
  
 
