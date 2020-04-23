@@ -808,7 +808,7 @@ Customise it as per below:
       client:
         provider:
           oidc:
-            issuer-uri: http://keycloak-http.default.svc.cluster.local:8090/auth/realms/ebanking
+            issuer-uri: http://localhost/keycloak-auth/realms/ebanking/auth/realms/ebanking
         registration:
           oidc:
             client-id: ebankingclient
@@ -817,6 +817,9 @@ Customise it as per below:
 
 -   Copy the client secret we note down in the paragraph 'Install and configure
     Keycloak on Kubernetes’ above into the properties `client-secret`
+
+-   Notice that we are using the client facing public Keycloak URL as the issuer
+    URI as this is run outside of Kubernetes for now.
 
 -   Save the file application.yaml
 
@@ -895,7 +898,7 @@ Customise it as per below:
       client:
         provider:
           oidc:
-            issuer-uri: http://keycloak-http.default.svc.cluster.local:8090/auth/realms/ebanking
+            issuer-uri: http://localhost/keycloak-auth/realms/ebanking/auth/realms/ebanking
         registration:
           oidc:
             client-id: ebankingclient
@@ -904,6 +907,9 @@ Customise it as per below:
 
 -   Copy the client secret we note down in the paragraph 'Install and configure
     Keycloak on Kubernetes’ above into the properties `client-secret`
+
+-   Notice that we are using the client facing public Keycloak URL as the issuer
+    URI as this is run outside of Kubernetes for now
 
 -   Once done, save the file application.yaml
 
@@ -1170,6 +1176,39 @@ Deployment to Kubernetes
 
 -   To avoid port conflict, please shut down both banking and gateway
     micro-services
+
+-   Firstly, we need to change the issuer-url to point to Keycloak from inside
+    Kubernetes. For both
+    \$PROJECTS/ebanking/**gateway**/src/main/resources/config/application.yaml
+    **and**
+    \$PROJECTS/ebanking/**banking**/src/main/resources/config/application.yaml
+
+-   Find the properties
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+security:
+    oauth2:
+      client:
+        provider:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Customise it as per below:
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  security:
+    oauth2:
+      client:
+        provider:
+          oidc:
+            issuer-uri: http://keycloak-http.default.svc.cluster.local:8090/auth/realms/ebanking
+        registration:
+          oidc:
+            client-id: ebankingclient
+            client-secret: <client secret>
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+-   Notice that issuer URI is now pointing to the internal (to Kubernetes)
+    Keycloak URL. Save the files.
 
 -   To start deployment setup, we need a Docker Hub id. Go to
     <https://hub.docker.com>. Register for an account.
