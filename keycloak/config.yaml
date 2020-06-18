@@ -23,8 +23,8 @@ keycloak:
   replicas: 1
 
   image:
-    repository: jboss/keycloak
-    tag: 9.0.0
+    repository: azrulhasni/keycloak
+    tag: 9.0.2
     pullPolicy: IfNotPresent
 
     ## Optionally specify an array of imagePullSecrets.
@@ -308,15 +308,15 @@ keycloak:
 
     ## Specify existing Secret
     # If set, specifies the Name of an existing Secret to read db credentials from.
-    existingSecret: ""
-    existingSecretPasswordKey: ""  # read keycloak db password from existingSecret under this Key
-    existingSecretUsernameKey: ""  # read keycloak db user from existingSecret under this Key
+    existingSecret: postgres-cred-secret
+    existingSecretPasswordKey: password  # read keycloak db password from existingSecret under this Key
+    existingSecretUsernameKey: username  # read keycloak db user from existingSecret under this Key
 
     ## Provision new Secret
     # Only used if existingSecret is not specified. In this case a new secret is created
     # populated by the variables below.
     dbUser: keycloak
-    dbPassword: ""
+    dbPassword: 1qazZAQ!
 
 postgresql:
   ### PostgreSQL User to create.
@@ -326,7 +326,7 @@ postgresql:
   ## PostgreSQL Password for the new user.
   ## If not set, a random 10 characters password will be used.
   ##
-  postgresqlPassword: ""
+  postgresqlPassword: 1qazZAQ!
 
   ## PostgreSQL Database to create.
   ##
@@ -338,7 +338,7 @@ postgresql:
   persistence:
     ## Enable PostgreSQL persistence using Persistent Volume Claims.
     ##
-    enabled: false
+    enabled: true
 
 test:
   enabled: true
